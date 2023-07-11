@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "ecomarket-a1832",
+  "private_key_id": "acc8a87f6949d8d5b37de94cf4e0f3688a49435d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDYnUq4w114Mt2R\n2DJGy/qmAfKBl5ZcbkaccqlR5IrzDgKOtha15EZtviAs1zTnbfYeTlar2gepBYvD\nmDXXrtS647CP+gz+2Fe8syEIhxqlCM7wA9NKhSPl/AJeTSxnezsHIEadGzzv2xqK\nw4QUXmWGq96IG/438/1kYX4DdVKeUKVrMLuf0+7ETd3xRfPyD9IsaVp+Rb1VZMXp\nJLToMQNNsGb6/NQTOA8M1L2QCHHORACmwZVbriI8ebn7gmKfT2b+gO6/1usi/6gn\ne+62dDmK0ECI39uFgKojQ4W7vb5T5xlQSGhr0ozPbcrMtVCvdET/4nrmVDFH1Whx\nHTvlWoWHAgMBAAECggEACoy6lL4QbCgPX34ykKfNk3k5I4j2TevMV5aZWtTb1D5E\nmfO8rmt+50hhDnNaxGy4Fb4bUtpXENXQJUdhU+7+ta1yLh5FChe6Si/v4MJHu22Z\nj9n31+4dE03kmvgnkftP+CcLxAoNZox6wfMHbesyXE6Rk3py4AHA6mXPJSxOc58D\nOGVA9f343HOS+g/J3Ic3m8tF8XOabTYPEXYoVz0e8NhVarBmuLD+OHzHjxVlkmFK\n0mAHgrZoQiE2oViwYjpmprRaTCsM66yTBYZEPM+unGYjOD27AloPDvVNI+1fY/x8\nxWT4uukRUeFI7Y4l4+4X+K2knxjgOItW605pv5Xw9QKBgQD85QHVHkfc3rB8J45G\nm21ogGK0PVoxsBF4VqgOImg6S5mzLz8LG5mbjmTZHHe7+Di0Dw0Qy5qdoqHEkZAh\nUh37UleWV9+qbwTCjRG4SeWjEBvatDh/Nb1OaO6lG+tQ1vWIroyjP1vetJ7y8M+1\n5sfoiY6pkfHWKJNku4Xg4aDJawKBgQDbRjxEGTui6cONQumHzc/x2GN+exQBUirs\nndFZn75e9Bxt6LW34FDOg7DCyjCc1ISNcCLVzdqTMfsUsFqRzpSadqa7WazDH+VY\norFmZMHAU4gP0iUI3Yhm1bgmSlzjkvTK6PL7LJ0NjXBWXjJZ/FAiOaS08dODOxjw\nctInkDcvVQKBgEhlIm4o+fd/hFQ2WqNZ0SsuPZNNUOmSdp3VaMyLCv1NMRW7e7ep\nUgLW84W3gYs81ras7FeXgY6IxPhplzICuPR+MPan9y5qE5nCGoWAGg3hCahFGTtJ\nXgT5Qv/fCzEcKDPVjAsbkygg2rO/PibbhvTJlB502h8thGw8xmmHDak7AoGAcIUE\nG/XO0nSecnipmZSVZoch1x+VTnA5sp3xdcoxSEx/4i6OQUMMdEzDgdF7TJ8JPgMS\n/R/bT7lQHHe6oiOdwf2s5WrI6oANkoQ6AE8n1WeH5IZzlq8Hda2qB4wVSnp4vz72\noMlt9ixkPw2rTN3ayRVHXcrSPP8wdwKUsNSiXNkCgYEAv7ntCGhenj9vUeuLsQSj\nYy//nfjb1aCLPWt4pCZbyrXz6QZti4mCz+0KVP4FrTH3Q1VX3Dywy707AHjLDfz5\nQt5K0SGCvZbGlwivIMTgyCT025VJZjBzUzwPGkeFeZGyRzg+X1qhSwxMm0cfJKf4\nVAbycgcWRxsVbNhmWbL+omI=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-k7faz@ecomarket-a1832.iam.gserviceaccount.com",
+  "client_id": "115163643006512805914",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-k7faz%40ecomarket-a1832.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
