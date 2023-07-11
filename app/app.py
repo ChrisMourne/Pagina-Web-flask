@@ -1,6 +1,6 @@
 import firebase_admin 
 from firebase_admin import credentials, firestore
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect
 
 cred = credentials.Certificate('clave.json')
 firebase_admin.initialize_app(cred)
@@ -8,6 +8,9 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 app = Flask(__name__)
+
+app.secret_key = '987654321'
+
 @app.route('/')
 def index():
     return render_template("index.html")
@@ -28,14 +31,22 @@ def login():
         users_ref = db.collection('Usuario')
         query = users_ref.where('username', '==', username).where('password', '==', password)
         result = query.get()
-        print(result)
+        session['usuario'] = username
 
         if len(result) > 0:  # Verifica si se encontraron documentos
-            return render_template('dashboard.html')
+            return render_template('index.html', usuario = username)
         else:
             return render_template('login.html')
     else:
         return render_template('login.html')
+    
+@app.route('/dashboard')
+def perfil():
+    username = session.get('usuario')
+    if username:
+        return render_template("dashboard.html", usuario=username)
+    else:
+        return redirect('/login')
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -50,6 +61,11 @@ def register():
         return render_template('login.html')
     else:
         return render_template('register.html')
+    
+@app.route('/logout')
+def logout():
+    session.pop('usuario', None)
+    return redirect('/')
 
     
 if __name__ == '__main__':
