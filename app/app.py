@@ -1,4 +1,4 @@
-
+import firebase_admin
 from firebase_admin import credentials, firestore
 from flask import Flask, render_template, request, session, redirect
 
