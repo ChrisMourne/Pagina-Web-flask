@@ -1,11 +1,15 @@
-import firebase_admin 
+import firebase_admin
 from firebase_admin import credentials, firestore
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect
 
 cred = credentials.Certificate('clave.json')
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
+
+app = Flask(__name__)
+
+app.secret_key = '987654321'
 
 def register():
     if request.method == 'POST':

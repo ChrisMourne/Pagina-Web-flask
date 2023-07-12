@@ -1,9 +1,19 @@
 import firebase_admin
 from firebase_admin import credentials, firestore
 from flask import Flask, render_template, request, session, redirect
+# from firebase_admin import storage
+from firebase_admin import storage
+from werkzeug.utils import secure_filename
 
+
+# Obtén la ruta completa al archivo JSON de las credenciales de servicio
+
+# Inicializa la aplicación de Firebase utilizando las credenciales de servicio
 cred = credentials.Certificate('clave.json')
-firebase_admin.initialize_app(cred)
+firebase_admin.initialize_app(cred, {
+    'storageBucket': 'ecomarket-a1832.appspot.com'
+})
+
 
 db = firestore.client()
 
@@ -23,6 +33,10 @@ def tienda():
 def producto():
     return render_template("producto.html")
 
+@app.route('/adminindex')
+def admin_Index():
+    return render_template("adminindex.html")
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -34,11 +48,22 @@ def login():
         session['usuario'] = username
 
         if len(result) > 0:  # Verifica si se encontraron documentos
-            return render_template('index.html', usuario = username)
+            if username:
+                users_ref = db.collection('Usuario')
+                #La función a continuación sirve para hacer consultas con el where
+                query = users_ref.where('username', '==', username).where('admin', '==', 1)
+                result = query.get()
+                if len(result) > 0:
+                    return render_template("adminindex.html", usuario=username)
+                else:
+                    return render_template('index.html', usuario = username)
+            else:
+                return render_template('login.html')
         else:
             return render_template('login.html')
     else:
-        return render_template('login.html')
+            return render_template('login.html')
+
     
 @app.route('/dashboard')
 def perfil():
@@ -67,6 +92,43 @@ def logout():
     session.pop('usuario', None)
     return redirect('/')
 
-    
+@app.route('/adminpage')
+def admin_Page():
+    username = session.get('usuario')
+    if username:
+        users_ref = db.collection('Usuario')
+        #La función a continuación sirve para hacer consultas con el where
+        query = users_ref.where('username', '==', username).where('admin', '==', 1)
+        result = query.get()
+        if len(result) > 0:
+            return render_template("adminpage.html", usuario=username)
+    return redirect('/login')
+
+@app.route('/productos_Admin', methods=['GET', 'POST'])
+def crear_Producto():
+    if request.method == 'POST':
+        producto = request.form.get('product_name')
+        precio = request.form.get('product_price')
+        imagen = request.files.get('product_image')
+        print(imagen)
+        nombre_imagen = secure_filename(imagen.filename) if imagen else None
+
+        if nombre_imagen:
+            # Cargar imagen en Firebase Storage
+            bucket = storage.bucket()
+            blob = bucket.blob(nombre_imagen)
+            blob.upload_from_file(imagen)
+
+            imagen_url = blob.public_url
+
+            nuevo_Producto = {"producto": producto, "precio": precio, "imagen": imagen_url}
+            doc_ref = db.collection("Producto").add(nuevo_Producto)
+        
+        return render_template("productos_Admin.html")
+
+    return render_template("productos_Admin.html")
+
+
 if __name__ == '__main__':
     app.run(debug=True)
+

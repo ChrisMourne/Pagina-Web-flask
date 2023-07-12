@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Página de administración</title>
+</head>
+<body>
+    <h1>Bienvenido Admin, {{ usuario }}!</h1>
+    <a href="/logout">Cerrar sesión</a>
+    
+    <form method="POST" action="/productos_Admin" enctype="multipart/form-data">
+        <label for="product_name">Nombre del producto:</label>
+        <input type="text" id="product_name" name="product_name" required><br><br>
+
+        <label for="product_price">Precio del producto:</label>
+        <input type="text" id="product_price" name="product_price" required><br><br>
+
+        <label for="product_images">Imagen del producto:</label>
+        <input type="file" id="product_image" name="product_image" required><br><br>
+
+        <input type="submit" value="Crear Producto">
+    </form>
+</body>
+</html>
