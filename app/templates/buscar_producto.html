@@ -15,8 +15,8 @@
         <p>ID: {{ producto.id }}</p>
         <p>Nombre: {{ producto.producto }}</p>
         <p>Precio: {{ producto.precio }}</p>
-        {% if producto.imagen %}
-            <img src="{{ producto.imagen }}" alt="Imagen del Producto">
+        {% if imagen %}
+            <img src="{{ imagen }}" alt="Imagen del Producto">
         {% endif %}
         <h2>Actualizar Producto:</h2>
         <form method="POST" action="/actualizar_producto">

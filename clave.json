@@ -9,5 +9,11 @@
   "token_uri": "https://oauth2.googleapis.com/token",
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-k7faz%40ecomarket-a1832.iam.gserviceaccount.com",
-  "universe_domain": "googleapis.com"
+  "universe_domain": "googleapis.com",
+  "apiKey": "AIzaSyDTFaBDaOIzIdpbCzQopxpuKPJQxQXrQR4",
+  "authDomain": "ecomarket-a1832.firebaseapp.com",
+  "projectId": "ecomarket-a1832",
+  "storageBucket": "ecomarket-a1832.appspot.com",
+  "messagingSenderId": "736616157400",
+  "appId": "1:736616157400:web:86659058a4f8f2a05987ad"
 }

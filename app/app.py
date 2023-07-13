@@ -1,19 +1,21 @@
 import firebase_admin
 from firebase_admin import credentials, firestore
 from flask import Flask, render_template, request, session, redirect
-# from firebase_admin import storage
 from firebase_admin import storage
 from werkzeug.utils import secure_filename
-
+import datetime
 
 # Obtén la ruta completa al archivo JSON de las credenciales de servicio
 
 # Inicializa la aplicación de Firebase utilizando las credenciales de servicio
 cred = credentials.Certificate('clave.json')
-firebase_admin.initialize_app(cred, {
-    'storageBucket': 'ecomarket-a1832.appspot.com'
-})
-
+firebase_admin.initialize_app(cred, {"universe_domain": "googleapis.com",
+  "apiKey": "AIzaSyDTFaBDaOIzIdpbCzQopxpuKPJQxQXrQR4",
+  "authDomain": "ecomarket-a1832.firebaseapp.com",
+  "projectId": "ecomarket-a1832",
+  "storageBucket": "ecomarket-a1832.appspot.com",
+  "messagingSenderId": "736616157400",
+  "appId": "1:736616157400:web:86659058a4f8f2a05987ad"})
 
 db = firestore.client()
 
@@ -112,6 +114,7 @@ def crear_Producto():
         imagen = request.files.get('product_image')
         print(imagen)
         nombre_imagen = secure_filename(imagen.filename) if imagen else None
+        print(nombre_imagen)
 
         if nombre_imagen:
             # Cargar imagen en Firebase Storage
@@ -130,7 +133,8 @@ def crear_Producto():
 
 @app.route('/buscar_producto', methods=['GET', 'POST'])
 def buscar_producto():
-    producto = None
+    producto = None # Inicializar la variable producto
+    token = None  # Inicializar la variable imagen
 
     if request.method == 'POST':
         nombre_producto = request.form.get('nombre_producto')
@@ -147,10 +151,16 @@ def buscar_producto():
             for producto_doc in resultados:
                 # Obtener el producto encontrado junto con su ID
                 producto = producto_doc.to_dict()
+                imagenurl = producto.get('imagen')
+                imagen = imagenurl.split("/")[-1]
                 producto['id'] = producto_doc.id
                 break
+            bucket = storage.bucket()
+            blob = bucket.blob(imagen)  # Reemplaza "ruta/a/tu/imagen.jpg" con la ruta de tu imagen en Firebase Storage
+            token = blob.generate_signed_url(expiration=datetime.timedelta(minutes=15), method='GET')
+            
 
-    return render_template('buscar_producto.html', producto=producto)
+    return render_template('buscar_producto.html', producto=producto, imagen=token)
 
 @app.route('/actualizar_producto', methods=['POST'])
 def actualizar_producto():
@@ -184,7 +194,17 @@ def actualizar_producto():
 
     return redirect('/buscar_producto')
 
+@app.route('/imagen')
+def get_image_token():
+    # Obtener el token de acceso de la imagen
+    bucket = storage.bucket()
+    blob = bucket.blob('banner2.jpg')  # Reemplaza "ruta/a/tu/imagen.jpg" con la ruta de tu imagen en Firebase Storage
+    token = blob.generate_signed_url(expiration=datetime.timedelta(minutes=15), method='GET')
+
+    return render_template('imagen.html', token=token)
+
 if __name__ == '__main__':
     app.run()
+
 
 
