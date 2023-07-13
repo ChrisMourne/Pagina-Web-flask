@@ -128,7 +128,63 @@ def crear_Producto():
 
     return render_template("productos_Admin.html")
 
+@app.route('/buscar_producto', methods=['GET', 'POST'])
+def buscar_producto():
+    producto = None
+
+    if request.method == 'POST':
+        nombre_producto = request.form.get('nombre_producto')
+
+        # Obtener una referencia a la colección "Producto"
+        productos_ref = db.collection("Producto")
+
+        # Realizar una consulta para buscar el producto por su nombre
+        query = productos_ref.where("producto", "==", nombre_producto)
+        resultados = query.get()
+
+        # Verificar si se encontraron resultados
+        if resultados:
+            for producto_doc in resultados:
+                # Obtener el producto encontrado junto con su ID
+                producto = producto_doc.to_dict()
+                producto['id'] = producto_doc.id
+                break
+
+    return render_template('buscar_producto.html', producto=producto)
+
+@app.route('/actualizar_producto', methods=['POST'])
+def actualizar_producto():
+    if request.method == 'POST':
+        nombre_producto = request.form.get('nombre_producto')
+        nuevo_nombre = request.form.get('nuevo_nombre')
+        nuevo_precio = request.form.get('nuevo_precio')
+
+        # Obtener una referencia a la colección "Producto"
+        productos_ref = db.collection("Producto")
+
+        # Realizar una consulta para buscar el producto por su nombre
+        query = productos_ref.where("producto", "==", nombre_producto)
+        resultados = query.get()
+
+        # Verificar si se encontraron resultados
+        if resultados:
+            for producto_doc in resultados:
+                # Obtener el ID del producto encontrado
+                producto_id = producto_doc.id
+
+                # Actualizar el nombre y precio del producto
+                doc_ref = productos_ref.document(producto_id)
+                doc_ref.update({
+                    "producto": nuevo_nombre,
+                    "precio": nuevo_precio
+                })
+
+                print(f"Producto con nombre {nombre_producto} actualizado correctamente.")
+                break
+
+    return redirect('/buscar_producto')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
+
 

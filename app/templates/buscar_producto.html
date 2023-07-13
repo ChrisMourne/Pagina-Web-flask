@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Buscar y Actualizar Producto</title>
+</head>
+<body>
+    <h1>Buscar Producto</h1>
+    <form method="POST" action="/buscar_producto">
+        <label for="nombre_producto">Nombre del Producto:</label>
+        <input type="text" id="nombre_producto" name="nombre_producto">
+        <button type="submit">Buscar</button>
+    </form>
+    {% if producto %}
+        <h2>Detalles del Producto:</h2>
+        <p>ID: {{ producto.id }}</p>
+        <p>Nombre: {{ producto.producto }}</p>
+        <p>Precio: {{ producto.precio }}</p>
+        {% if producto.imagen %}
+            <img src="{{ producto.imagen }}" alt="Imagen del Producto">
+        {% endif %}
+        <h2>Actualizar Producto:</h2>
+        <form method="POST" action="/actualizar_producto">
+            <input type="hidden" name="nombre_producto" value="{{ producto.producto }}">
+            <label for="nuevo_nombre">Nuevo Nombre:</label>
+            <input type="text" id="nuevo_nombre" name="nuevo_nombre">
+            <label for="nuevo_precio">Nuevo Precio:</label>
+            <input type="text" id="nuevo_precio" name="nuevo_precio">
+            <button type="submit">Actualizar</button>
+        </form>
+    {% else %}
+        <p>No se encontró ningún producto con el nombre especificado.</p>
+    {% endif %}
+</body>
+</html>
+
+
+
+
+
+
